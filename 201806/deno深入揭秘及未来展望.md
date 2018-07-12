@@ -1,5 +1,5 @@
 ## deno
-node.js之父Ryan Dahl在一个月前发起了名为deno的项目，项目的初衷是**打造一个基于v8引擎的安全的TypeScript运行时**，同时实现HTML5的基础API。所谓的安全运行时，是将TS代码运行在一个沙盒里，访问受限的文件系统、网络功能，这比较类似于web里的iframe sandbox。
+node.js之父Ryan Dahl在一个月前发起了名为deno的项目，项目的初衷是 **打造一个基于v8引擎的安全的TypeScript运行时**，同时实现HTML5的基础API。所谓的安全运行时，是将TS代码运行在一个沙盒里，访问受限的文件系统、网络功能，这比较类似于web里的iframe sandbox。
 
 现阶段，deno的变化可谓翻天覆地。Ryan的项目一个月前提供了golang版本的deno简易源码，而如今不仅仅重构了项目，底层语言都切换为c++，接口也做了很大的更新，这源自于社区内热情的讨论，有太多太多的开发者、协作人员提出了太多的优化以及改进意见，这也就导致接下来未来几个月deno仍然会出现大改变，这在后文会提及。现在，我就带领大家进入最初的deno微观世界探索deno最初的设计。
 
@@ -9,11 +9,11 @@ node.js之父Ryan Dahl在一个月前发起了名为deno的项目，项目的初
 > 由于deno涉及之处是为了直接运行TS，因此下文会用TS来代指JS（现阶段TS没有自己的运行时，仍是基于编译为JS在运行在v8）
 
 deno的设计初期来看比较简单，宏观上看包括三部分：deno的go运行时、v8引擎以及连接go运行时和v8的v8worker2库。
-![deno简易架构](//si.geilicdn.com/hz_img_2c09000001644e9c9a1d0a02853e_1248_938_unadjust.png)
+![deno简易架构](https://si.geilicdn.com/hz_img_2c09000001644e9c9a1d0a02853e_1248_938_unadjust.png)
 go运行时是deno的特权级，它负责deno对系统资源的申请、使用、释放；v8引擎此处不仅仅执行JS代码，同时也负责TypeScript的编译；而v8worker2负责go与v8的全双工通信，通过ArrayBuffer传输数据，传输的协议规范为protobuf。
 
 深入到go运行时里，目前deno对TS层提供了几种能力：**Console、fetch、fs、module、timer、stack trace**，虽然有些功能没有提供用户端API，不过golang的接口已完成，扩展很容易。
-![deno详细](//si.geilicdn.com/hz_img_3432000001644eae9fd50a02685e_1216_876_unadjust.png)
+![deno详细](https://si.geilicdn.com/hz_img_3432000001644eae9fd50a02685e_1216_876_unadjust.png)
 
 ## go运行时
 deno在特权级代码执行了3端逻辑：

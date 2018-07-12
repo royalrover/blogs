@@ -8,6 +8,6 @@
 
 ## 个人网站
 
-[博客园](http://www.cnblogs.com/accordion/)
+[博客园](http://www.cnblogs.com/accordion/)
 
 [segmentfault](https://segmentfault.com/blog/yuxiu)
